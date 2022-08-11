@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Orgânico</title>
+    <link rel="shortcut icon" th:href="@{/img/Group 16.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body class="d-flex flex-column img-bak" style="width: 100wh; height: 100vh;">
+
+    <main class="mt-auto mb-auto">
+        <div class="row justify-content-end">
+            
+            <div class="col-5 pb-5 ps-5">
+                <div class="row justify-content-center col-13">
+                    <svg width="87" height="91" viewBox="0 0 87 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.99799 40.0231C4.31763 40.0231 2.26547 37.3994 2.8518 34.6422C7.08176 14.8085 23.7503 0 43.7274 0C63.7045 0 80.373 14.8085 84.5611 34.6422C84.6941 35.2917 84.688 35.9646 84.5432 36.6113C84.3985 37.2579 84.1188 37.8618 83.7248 38.3783C83.3309 38.8948 82.8327 39.3108 82.267 39.5954C81.7014 39.8801 81.0828 40.0263 80.4568 40.0231C78.5303 40.0231 76.8132 38.6445 76.3944 36.6434C73.0439 20.7675 59.684 8.89402 43.7274 8.89402C27.7708 8.89402 14.4109 20.7675 11.0604 36.6434C10.6416 38.6445 8.92451 40.0231 6.99799 40.0231Z" fill="#15CA55"/>
+                        <path d="M80.4097 50.9769C83.09 50.9769 85.1422 53.6006 84.5559 56.3578C80.3259 76.1915 63.6574 91 43.6803 91C23.7031 91 7.03461 76.1915 2.84654 56.3578C2.71356 55.7083 2.71967 55.0354 2.86441 54.3887C3.00916 53.7421 3.28884 53.1382 3.68281 52.6217C4.07678 52.1052 4.57498 51.6892 5.14062 51.4045C5.70626 51.1199 6.32489 50.9737 6.95085 50.9769C8.87737 50.9769 10.5945 52.3555 11.0133 54.3566C14.3637 70.2325 27.7237 82.106 43.6803 82.106C59.6368 82.106 72.9968 70.2325 76.3472 54.3566C76.7661 52.3555 78.4832 50.9769 80.4097 50.9769Z" fill="#15CA55"/>
+                        <path d="M39.7818 84.3269C39.7818 84.3269 44.0685 68.7088 30.4047 54.4123C16.7409 40.1159 1.00277 43.7522 1.00277 43.7522C1.00277 43.7522 -4.52584 58.0709 10.3798 73.6668C25.2855 89.2627 39.7818 84.3269 39.7818 84.3269Z" fill="#15CA55"/>
+                        <path d="M47.2052 84.3248C47.2052 84.3248 62.9427 87.9612 76.6062 73.6653C90.2698 59.3694 85.9835 43.7519 85.9835 43.7519C85.9835 43.7519 71.4879 38.8162 56.5825 54.4115C41.6771 70.0067 47.2052 84.3248 47.2052 84.3248Z" fill="#15CA55"/>
+                        <path d="M53.1544 34.3356C53.1544 39.5708 48.9232 43.8148 43.7038 43.8148C38.4843 43.8148 34.2532 39.5708 34.2532 34.3356C34.2532 29.1004 38.4843 24.8565 43.7038 24.8565C48.9232 24.8565 53.1544 29.1004 53.1544 34.3356Z" fill="#15CA55"/>
+                        </svg>
+                </div>
+                <form class="mt-1" method="post" th:action="@{/logar}">
+                    <div class="g-3">
+                        <div th:if="${!#strings.isEmpty(msgErro)}" class="mensss pt-3">
+                            [[${msgErro}]] 
+                        </div>
+                        <div class="col-13 pt-3">
+                            <label class="form-label hh">Email</label>
+                            <input class="Text" type="email" name="email" required>
+                        </div>
+            
+                        <div class="col-13 pt-2">
+                            <label class="form-label hh">Senha</label>
+                            <input class="Text" type="password" name="password" required>
+                        </div>
+
+                        <div class="pb-5 hh pt-1">
+                            <a th:href="@{/esqueceu-senha}" class="nav-link">
+                                Esqueceu a senha
+                            </a>
+                        </div>
+
+                        <div class="bott col-13">
+                            <button class="button-w fw-bold py-wh-1 col-5" type="submit">
+                                Entrar
+                            </button>
+                        </div>
+
+                        <div class="text-center col-13 pt-3">
+                            <p>Não tem conta?
+                                <a th:href="@{/cadastro}" class="fw-semibold link-green" style="text-decoration:none">
+                                    Inscrever-se
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
