@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre-se - Mundo Orgânico</title>
+    <link rel="shortcut icon" th:href="@{/img/Group 16.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body class="d-flex flex-column img-bak-regis" style="width: 100wh; height: 100vh;">
+    <header th:replace="fragments/headerLogin :: header_login"></header>
+    
+    <main class="mt-auto mb-auto">
+        <div class="row justify-content-end">
+
+            <div class="col-6 pb-2 ps-7">
+                <h2 class="col-13 text-center fw-semibold">Basta se cadastrar</h2>
+                <form method="post" th:action="@{/salvarUser}">
+                    <div>
+                        <div class="col-13 pt-5">
+                            <label class="form-label hh">Nome Fantasia</label>
+                            <input class="Text" type="text" name="fantasy_name" required>
+                        </div>
+            
+                        <div class="pt-2 col-13">
+                                <label class="form-label hh">CNPJ</label>
+                                <input class="Text" type="text" name="cnpj" required>
+                        </div>
+
+                        <div class="col-13 pt-2">
+                            <label class="form-label hh">Email</label>
+                            <input class="Text" type="email" name="email" required>
+                        </div>
+
+                        <div class="col-13 pt-2">
+                            <label class="form-label hh">Senha</label>
+                            <input class="Text" type="password" name="password" minlength="8" required>
+                        </div>
+
+                        <div class="col-13 pt-2 pb-5">
+                            <label class="form-label hh">Confirmar senha</label>
+                            <input class="Text" type="password" name="passwordValid" minlength="8" required>
+                        </div>
+
+                        <div class="bott col-13">
+                            <button class="button-w fw-bold py-wh-1 col-5" type="submit">
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center col-13">
+                    <small>
+                        Ao se registrar, você aceita os
+                        <a href="#" class="nav-link link-green"> 
+                            Termos e Condições e as Políticas de Privacidade.
+                        </a>
+                    </small>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
