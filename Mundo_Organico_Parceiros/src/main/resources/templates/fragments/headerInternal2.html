@@ -1,4 +1,4 @@
-<header th:fragment="header_internal2">
+<header th:fragment="header_internal2" xmlns:th="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-md adjust">
         <div class="container-fluid ms-2 me-3">
             <div class="navbar-brand me-5">
@@ -27,7 +27,7 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="dropdownMenuOffset">
-                        <li><a class="dropdown-item" th:href="@{####}">Vendas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/vendas/{id}(id=${session.logado.id})}">Vendas</a></li>
                         <li><a class="dropdown-item" th:href="@{/meus-dados}">Meus Dados</a></li>
                         <li><a class="dropdown-item" th:href="@{/sair}">Sair</a></li>
                       </ul>
