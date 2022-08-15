@@ -2,6 +2,8 @@ package br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Product;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.exception.UserInvalid;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.exception.UserNonexistentException;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Ordered_Items;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Salesman;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.SalesmanDAO;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.services.Ordered_ItemsService;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.services.SalesmanService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SalesmanController {
@@ -26,6 +33,9 @@ public class SalesmanController {
 
 	@Autowired
 	private SalesmanService salesmanService;
+	
+	@Autowired
+	private Ordered_ItemsService ordered_ItemsService;
 
 	@GetMapping("/")
 	public String viewLogin() {
@@ -107,6 +117,37 @@ public class SalesmanController {
 	@GetMapping("/meus-dados")
 	public String viewDados() {
 		return "settings";
+	}
+	
+	@GetMapping("/vendas/{id}")
+	public String viewSales(Model model, @PathVariable Integer id) {
+
+		List<Ordered_Items> items = ordered_ItemsService.allItems();
+		List<Ordered_Items> itemsSelecionados = new ArrayList<>();
+		List<Product> products = new ArrayList<>();
+
+		for(Ordered_Items it : items) {
+			if(it.getProduct().getSalesman().getId().equals(id)) {
+
+				boolean valid = false;
+
+				for(Product p : products) {
+					valid = p.getId().equals(it.getProduct().getId()) ? true : false;
+					System.out.println(valid);
+				}
+
+				if(valid != true) {
+					products.add(it.getProduct());
+					itemsSelecionados.add(it);
+				}
+
+			}
+		}
+
+		model.addAttribute("items", itemsSelecionados);
+
+
+		return "sales";
 	}
 
 	@GetMapping("/info-pessoa/{id}")
