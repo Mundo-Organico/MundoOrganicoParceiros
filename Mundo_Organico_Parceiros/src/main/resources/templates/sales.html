@@ -68,6 +68,15 @@
                                             <th scope="col" class="fw-semibold">Taxa (%)</th>
                                         </tr>
                                     </thead>
+                                    <tbody th:each="item : ${items}">
+                                    	<td> <span th:text="${item.product.name}"></span> </td>
+                                    	<td> <span th:text="${item.request.data}"></span> </td>
+                                    	<td> <span th:text="${item.request.hora}"></span> </td>
+                                   	    <td> <span th:text="${item.amount}"></span> </td>
+                                        <td> <span th:text="${item.product.value}"></span> </ttd>
+                                        <td> <span th:text="${item.value}"></span> </ttd>
+                                    	<td>10%</td>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
