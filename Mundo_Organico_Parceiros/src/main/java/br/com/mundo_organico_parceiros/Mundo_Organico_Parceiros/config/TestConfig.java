@@ -2,19 +2,29 @@ package br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.config;
 
 import java.util.Arrays;
 
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.services.SalesmanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Category;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Ordered_Items;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Product;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Request;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.User;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models.Salesman;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.CategoryDAO;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.Ordered_ItemsDAO;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.ProductDAO;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.RequestDAO;
 import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.SalesmanDAO;
+import br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.repositories.UserDAO;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
+
+	@Autowired
+	private UserDAO userDAO;
 
 	@Autowired
 	private SalesmanDAO salesmanDAO;
@@ -25,6 +35,15 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private ProductDAO productDAO;
 
+	@Autowired
+	private RequestDAO requestDAO;
+
+	@Autowired
+	private SalesmanService salesmanService;
+
+	@Autowired
+	private Ordered_ItemsDAO ordered_ItemsDAO;
+
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -33,7 +52,10 @@ public class TestConfig implements CommandLineRunner {
 		Category c3 = new Category(null, "Hortaliças");
 		Category c4 = new Category(null, "Temperos");
 
-		Salesman s1 = new Salesman(null, "Seu Zé", "111.222.55-61", "seuzéltda@gmail.com", "123456");
+		Salesman s1 = new Salesman(null, "Seu Zé", "111.222.55-61", "seuzeltda@gmail.com", "12345678");
+		s1.setPassword(salesmanService.criptografarPassword(s1));
+
+		User u1 = new User(null, "Natalia Mendes", "222.222.222-22", "9 8888-8888", "test@hotmail.com.br", "10203040");
 
 		Product p1 = new Product(null, "Maçã", "Maçã maravilhosa", 2.50, "Maçã Verde", c1, s1,
 				"https://img.itdg.com.br/tdg/images/blog/uploads/2017/05/shutterstock_290834552.jpg");
@@ -92,10 +114,19 @@ public class TestConfig implements CommandLineRunner {
 		Product p28 = new Product(null, "Manga Rosa", "Manga Rosa muito doce", 2.99, "Manga Rosa", c1, s1,
 				"https://s2.glbimg.com/QeQ9cqGo-kE-TyD1crH7jpUiDE4=/620x455/e.glbimg.com/og/ed/f/original/2020/01/21/gettyimages-463651383.jpg");
 
+		Request r1 = new Request(null, "CONCLUÍDO", 2.5, 12.5, u1);
+
+		Ordered_Items i1 = new Ordered_Items(null, (p1.getValue() * 2), 2, r1, p1, u1);
+		Ordered_Items i2 = new Ordered_Items(null, (p2.getValue() * 3), 3, r1, p2, u1);
+
 		categoryDAO.saveAll(Arrays.asList(c1, c2, c3, c4));
 		salesmanDAO.save(s1);
 		productDAO.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17,
 				p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
+
+		userDAO.save(u1);
+		requestDAO.save(r1);
+		ordered_ItemsDAO.saveAll(Arrays.asList(i1, i2));
 
 	}
 
