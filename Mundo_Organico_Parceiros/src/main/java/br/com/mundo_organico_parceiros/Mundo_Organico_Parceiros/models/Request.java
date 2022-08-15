@@ -1,5 +1,7 @@
 package br.com.mundo_organico_parceiros.Mundo_Organico_Parceiros.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,8 +22,11 @@ public class Request {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-//	private Date time;
-//	private Date date;
+	private Date dataHoraAtual = new Date();
+
+	private String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+
+	private String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
 
 	private String status;
 
@@ -40,8 +45,33 @@ public class Request {
 		super();
 	}
 
+	public Request(Integer id, String status, Double subTotal, Double total, User user) {
+		super();
+		this.id = id;
+		this.status = status;
+		this.subTotal = subTotal;
+		this.total = total;
+		this.user = user;
+	}
+
 	public Integer getId() {
 		return id;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData() {
+		this.data = data;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora() {
+		this.hora = hora;
 	}
 
 	public void setId(Integer id) {
@@ -55,7 +85,7 @@ public class Request {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public Double getSubTotal() {
 		return subTotal;
 	}
@@ -87,5 +117,4 @@ public class Request {
 	public void setItems(Set<Ordered_Items> items) {
 		this.items = items;
 	}
-
 }

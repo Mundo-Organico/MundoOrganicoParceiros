@@ -33,7 +33,7 @@ public class User {
 
 	@Column(nullable = false)
 	private String password;
-	
+
 	private String codVerificar;
 
 	@OneToMany(mappedBy = "user")
@@ -44,6 +44,16 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public User(Integer id, String name, String cpf, String cellphone, String email, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cpf = cpf;
+		this.cellphone = cellphone;
+		this.email = email;
+		this.password = password;
 	}
 
 	public Integer getId() {
@@ -93,7 +103,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getCodVerificar() {
 		return codVerificar;
 	}

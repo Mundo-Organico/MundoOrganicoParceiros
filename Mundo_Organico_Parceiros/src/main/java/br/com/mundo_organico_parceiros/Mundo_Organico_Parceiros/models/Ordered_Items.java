@@ -38,6 +38,16 @@ public class Ordered_Items {
 	public Ordered_Items() {
 		super();
 	}
+	
+	public Ordered_Items(Integer id, Double value, Integer amount, Request request, Product product, User user) {
+		super();
+		this.id = id;
+		this.value = value;
+		this.amount = amount;
+		this.request = request;
+		this.product = product;
+		this.user = user;
+	}
 
 	public Integer getId() {
 		return id;
@@ -86,5 +96,6 @@ public class Ordered_Items {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 
 }
