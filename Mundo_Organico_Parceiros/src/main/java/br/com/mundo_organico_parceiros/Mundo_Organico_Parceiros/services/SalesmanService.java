@@ -23,6 +23,26 @@ public class SalesmanService {
 		return salesmanDAO.saveAndFlush(salesman);
 	}
 	
+	public void validSaveSalesman(Salesman salesman, String passwordValid) throws UserInvalid {
+
+		if (salesman.getFantasy_name().trim().isEmpty() || salesman.getCnpj().trim().isEmpty()
+				|| salesman.getEmail().trim().isEmpty() || salesman.getPassword().trim().isEmpty()) {
+
+			throw new UserInvalid("Os campos obrigatórios não podem estar vazio.");
+		}
+
+		if (this.salesmanDAO.existsByEmail(salesman.getEmail()) && !salesman.getPassword().equals(passwordValid)) {
+			throw new UserInvalid("Email já cadastrado.");
+
+		} else if (this.salesmanDAO.existsByEmail(salesman.getEmail())) {
+			throw new UserInvalid("Email já cadastrado.");
+
+		} else if (!salesman.getPassword().equals(passwordValid)) {
+			throw new UserInvalid("As senhas não coincidem.");
+		}
+
+	}
+	
 	public Salesman login(String email, String password) throws UserNonexistentException, UserInvalid {
 		
 		if (email.isBlank()) {

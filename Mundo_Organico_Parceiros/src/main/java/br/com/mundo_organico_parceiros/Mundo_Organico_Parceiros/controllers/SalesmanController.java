@@ -74,33 +74,23 @@ public class SalesmanController {
 	@PostMapping("/salvarUser")
 	public String createUser(Salesman salesman, String passwordValid, RedirectAttributes red) {
 
-		if (salesman.getFantasy_name().trim().isEmpty() || salesman.getCnpj().trim().isEmpty()
-				|| salesman.getEmail().trim().isEmpty() || salesman.getPassword().trim().isEmpty()) {
-			// red.addFlashAttribute(); mensagem
-			return "redirect:/cadastro";
+
+		try {
+
+			salesmanService.validSaveSalesman(salesman, passwordValid);
+
+			salesman.setPassword(salesmanService.criptografarPassword(salesman));
+			salesmanService.save(salesman);
+
+			return "redirect:/";
+
+		}
+		catch (UserInvalid e) {
+			red.addFlashAttribute("msgError", e.getMessage());
 		}
 
-		if (this.salesmanDAO.existsByEmail(salesman.getEmail()) && !salesman.getPassword().equals(passwordValid)) {
-			// red.addFlashAttribute(); mensagem
-			// red.addFlashAttribute("", salesman); Retornar o resto
-			return "redirect:/cadastro";
+		return "redirect:/cadastro";
 
-		} else if (this.salesmanDAO.existsByEmail(salesman.getEmail())) {
-			// red.addFlashAttribute(); mensagem
-			// red.addFlashAttribute("", salesman); Retornar o resto
-			return "redirect:/cadastro";
-
-		} else if (!salesman.getPassword().equals(passwordValid)) {
-			// red.addFlashAttribute(); mensagem
-			// red.addFlashAttribute("", salesman); Retornar o resto
-			return "redirect:/cadastro";
-		}
-
-		salesman.setPassword(salesmanService.criptografarPassword(salesman));
-		salesmanService.save(salesman);
-//		salesmanService.emailSend(salesman);
-
-		return "redirect:/";
 	}
 
 	@GetMapping("/sair")
